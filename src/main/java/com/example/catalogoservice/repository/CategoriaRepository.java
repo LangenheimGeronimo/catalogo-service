@@ -11,6 +11,5 @@ public interface CategoriaRepository extends JpaRepository<Categoria, Long>, Jpa
     // Se apoya en el índice único sobre 'nombre' definido en la entidad.
     boolean existsByNombre(String nombre);
 
-    // Búsqueda por nombre para operaciones de administración.
     Optional<Categoria> findByNombre(String nombre);
 }

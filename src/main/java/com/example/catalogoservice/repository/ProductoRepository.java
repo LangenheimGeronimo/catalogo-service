@@ -8,14 +8,11 @@ import java.util.List;
 
 public interface ProductoRepository extends JpaRepository<Producto, Long>, JpaSpecificationExecutor<Producto> {
 
-    // Recupera todos los productos de una categoría.
     // Se apoya en el índice sobre 'categoria_id' definido en la entidad.
     List<Producto> findByCategoriaId(Long categoriaId);
 
-    // Validación de unicidad de nombre dentro del catálogo.
     boolean existsByNombre(String nombre);
 
-    // Filtro por estado para operaciones de administración.
     // Se apoya en el índice sobre 'state' definido en la entidad.
     List<Producto> findByState(State state);
 }
