@@ -30,13 +30,10 @@ public class CategoriaServiceImpl implements CategoriaService {
     @Override
     @Transactional
     public CategoriaResponseDTO createCategoria(CategoriaCreateDTO dto) {
-        if (dto == null) {
-            throw new IllegalArgumentException("El DTO de creación no puede ser nulo");
-        }
         log.info("Intento de creación de categoría con nombre: {}", dto.nombre());
 
         if (categoriaRepository.existsByNombre(dto.nombre())) {
-            throw new ResourceNotFoundException("Ya existe una categoría con el nombre: " + dto.nombre());
+            throw new IllegalArgumentException ("Ya existe una categoría con el nombre: " + dto.nombre());
         }
 
         Categoria categoria = categoriaMapper.toEntity(dto);
@@ -48,9 +45,6 @@ public class CategoriaServiceImpl implements CategoriaService {
 
     @Override
     public CategoriaResponseDTO getCategoria(Long id) {
-        if (id == null) {
-            throw new IllegalArgumentException("El ID no puede ser nulo");
-        }
         log.info("Buscando categoría con ID: {}", id);
         Categoria categoria = categoriaRepository.findById(id)
                 .orElseThrow(ResourceNotFoundException::new);
@@ -75,12 +69,6 @@ public class CategoriaServiceImpl implements CategoriaService {
     @Override
     @Transactional
     public CategoriaResponseDTO updateCategoria(Long id, CategoriaUpdateDTO dto) {
-        if (id == null) {
-            throw new IllegalArgumentException("El ID no puede ser nulo");
-        }
-        if (dto == null) {
-            throw new IllegalArgumentException("El DTO de actualización no puede ser nulo");
-        }
         log.info("Intento de actualización de categoría con ID: {}", id);
 
         Categoria categoria = categoriaRepository.findById(id)
@@ -100,9 +88,6 @@ public class CategoriaServiceImpl implements CategoriaService {
     @Override
     @Transactional
     public void deleteCategoria(Long id) {
-        if (id == null) {
-            throw new IllegalArgumentException("El ID no puede ser nulo");
-        }
         log.info("Intento de eliminación de categoría con ID: {}", id);
 
         Categoria categoria = categoriaRepository.findById(id)
@@ -121,9 +106,6 @@ public class CategoriaServiceImpl implements CategoriaService {
     @Override
     @Transactional
     public CategoriaResponseDTO changeState(Long id, State newState) {
-        if (id == null) {
-            throw new IllegalArgumentException("El ID no puede ser nulo");
-        }
         if (newState == null) {
             throw new IllegalArgumentException("El nuevo estado no puede ser nulo");
         }

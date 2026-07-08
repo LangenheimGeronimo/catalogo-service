@@ -34,9 +34,6 @@ public class ProductoServiceImpl implements ProductoService {
     @Override
     @Transactional
     public ProductoResponseDTO createProducto(ProductoCreateDTO dto) {
-        if (dto == null) {
-            throw new IllegalArgumentException("El DTO de creación no puede ser nulo");
-        }
         log.info("Intento de creación de producto con nombre: {}", dto.nombre());
 
         if (productoRepository.existsByNombre(dto.nombre())) {
@@ -57,9 +54,6 @@ public class ProductoServiceImpl implements ProductoService {
 
     @Override
     public ProductoResponseDTO getProducto(Long id) {
-        if (id == null) {
-            throw new IllegalArgumentException("El ID no puede ser nulo");
-        }
         log.info("Buscando producto con ID: {}", id);
         Producto producto = productoRepository.findById(id)
                 .orElseThrow(ResourceNotFoundException::new);
@@ -68,9 +62,6 @@ public class ProductoServiceImpl implements ProductoService {
 
     @Override
     public ProductoAdminResponseDTO getProductoAdmin(Long id) {
-        if (id == null) {
-            throw new IllegalArgumentException("El ID no puede ser nulo");
-        }
         log.info("Buscando producto (admin) con ID: {}", id);
         Producto producto = productoRepository.findById(id)
                 .orElseThrow(ResourceNotFoundException::new);
@@ -96,12 +87,6 @@ public class ProductoServiceImpl implements ProductoService {
     @Override
     @Transactional
     public ProductoResponseDTO updateProducto(Long id, ProductoUpdateDTO dto) {
-        if (id == null) {
-            throw new IllegalArgumentException("El ID no puede ser nulo");
-        }
-        if (dto == null) {
-            throw new IllegalArgumentException("El DTO de actualización no puede ser nulo");
-        }
         log.info("Intento de actualización de producto con ID: {}", id);
 
         Producto producto = productoRepository.findById(id)
@@ -126,9 +111,6 @@ public class ProductoServiceImpl implements ProductoService {
     @Override
     @Transactional
     public void deleteProducto(Long id) {
-        if (id == null) {
-            throw new IllegalArgumentException("El ID no puede ser nulo");
-        }
         log.info("Intento de eliminación de producto con ID: {}", id);
 
         Producto producto = productoRepository.findById(id)
@@ -147,9 +129,6 @@ public class ProductoServiceImpl implements ProductoService {
     @Override
     @Transactional
     public ProductoResponseDTO changeState(Long id, State newState) {
-        if (id == null) {
-            throw new IllegalArgumentException("El ID no puede ser nulo");
-        }
         if (newState == null) {
             throw new IllegalArgumentException("El nuevo estado no puede ser nulo");
         }
