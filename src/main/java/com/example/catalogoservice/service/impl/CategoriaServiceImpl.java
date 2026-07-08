@@ -1,5 +1,6 @@
 package com.example.catalogoservice.service.impl;
 
+import com.example.catalogoservice.exception.DuplicateResourceException;
 import com.example.catalogoservice.exception.ResourceNotFoundException;
 import com.example.catalogoservice.mapper.CategoriaMapper;
 import com.example.catalogoservice.model.dto.CategoriaCreateDTO;
@@ -33,7 +34,7 @@ public class CategoriaServiceImpl implements CategoriaService {
         log.info("Intento de creación de categoría con nombre: {}", dto.nombre());
 
         if (categoriaRepository.existsByNombre(dto.nombre())) {
-            throw new IllegalArgumentException ("Ya existe una categoría con el nombre: " + dto.nombre());
+            throw new DuplicateResourceException ("Ya existe una categoría con el nombre: " + dto.nombre());
         }
 
         Categoria categoria = categoriaMapper.toEntity(dto);

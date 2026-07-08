@@ -1,5 +1,6 @@
 package com.example.catalogoservice.service.impl;
 
+import com.example.catalogoservice.exception.DuplicateResourceException;
 import com.example.catalogoservice.exception.ResourceNotFoundException;
 import com.example.catalogoservice.mapper.ProductoMapper;
 import com.example.catalogoservice.model.dto.ProductoAdminResponseDTO;
@@ -37,7 +38,7 @@ public class ProductoServiceImpl implements ProductoService {
         log.info("Intento de creación de producto con nombre: {}", dto.nombre());
 
         if (productoRepository.existsByNombre(dto.nombre())) {
-            throw new IllegalArgumentException("Ya existe un producto con el nombre: " + dto.nombre());
+            throw new DuplicateResourceException("Ya existe un producto con el nombre: " + dto.nombre());
         }
 
         Categoria categoria = categoriaRepository.findById(dto.categoriaId())

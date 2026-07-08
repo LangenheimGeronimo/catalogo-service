@@ -61,10 +61,18 @@ public class GlobalExceptionHandler {
                 .body(new ErrorResponse(ex.getMessage(), LocalDateTime.now()));
     }
 
+    @ExceptionHandler(DuplicateResourceException.class)
+    public ResponseEntity<ErrorResponse> handleDuplicateResource(DuplicateResourceException ex) {
+        log.warn("Recurso duplicado: {}", ex.getMessage());
+        return ResponseEntity.status(HttpStatus.CONFLICT)
+                .body(new ErrorResponse(ex.getMessage(), LocalDateTime.now()));
+    }
+
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorResponse> handleGeneral(Exception ex) {
         log.error("Error no controlado detectado: ", ex);
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                 .body(new ErrorResponse("Ocurrió un error inesperado, intente más tarde", LocalDateTime.now()));
     }
+
 }
